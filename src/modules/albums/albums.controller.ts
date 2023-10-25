@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  Delete,
+} from '@nestjs/common';
 import { AlbumsService } from './albums.service';
 import { Albums } from './type/albums.interface';
 import { ConfigModule } from '@nestjs/config';
@@ -34,5 +43,20 @@ export class AlbumsController {
   @Post('/add')
   async addAlbum(@Body() body): Promise<string> {
     return await this.albumsService.addAlbum(body);
+  }
+
+  // Delete Album
+  @Delete('/delete/:id')
+  async deleteAlbum(@Param('id') id: number): Promise<string> {
+    return await this.albumsService.deleteAlbum(id);
+  }
+
+  // Update Album
+  @Put('/update/:id')
+  async updateAlbum(
+    @Param('id') id: number,
+    @Body() body: Albums,
+  ): Promise<string> {
+    return await this.albumsService.updateAlbum(id, body);
   }
 }

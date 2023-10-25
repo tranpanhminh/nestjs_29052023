@@ -91,6 +91,7 @@ export class AlbumsRepository {
     }
   }
 
+  // Add Album
   async addAlbum(body): Promise<string> {
     const albums = await this.getAlbums();
     const copyAlbums = [...albums];
@@ -105,5 +106,56 @@ export class AlbumsRepository {
       JSON.stringify(copyAlbums),
     );
     return 'Added';
+  }
+
+  // Delete Album
+  async deleteAlbum(id): Promise<string> {
+    const albums = await this.getAlbums();
+    const copyAlbums = [...albums];
+
+    const checkAlbum = copyAlbums.find((album: Albums) => {
+      return album.id === Number(id);
+    });
+    if (checkAlbum) {
+      const updatedAlbum = copyAlbums.filter((album: Albums) => {
+        return album.id !== Number(id);
+      });
+      await writeFile(
+        path.join('src/modules/albums', '/database/albums.json'),
+        JSON.stringify(updatedAlbum),
+      );
+      return 'Deleted';
+    } else {
+      return 'Album Not Found';
+    }
+  }
+
+  // Update Album
+  async updateAlbum(id: number, body: Albums): Promise<string> {
+    const albums = await this.getAlbums();
+    const copyAlbums = [...albums];
+    const checkAlbum = copyAlbums.find((album: Albums) => {
+      return album.id === Number(id);
+    });
+
+    const findAlbumIndex = copyAlbums.findIndex((album: Albums) => {
+      return album.id === Number(id);
+    });
+
+    if (checkAlbum) {
+      const updatedAlbum: Albums = {
+        id: !body.id ? checkAlbum.id : checkAlbum.id,
+        userId: !body.userId ? checkAlbum.userId : body.userId,
+        title: !body.title ? checkAlbum.title : body.title,
+      };
+      copyAlbums.splice(findAlbumIndex, 1, updatedAlbum);
+      await writeFile(
+        path.join('src/modules/albums', '/database/albums.json'),
+        JSON.stringify(copyAlbums),
+      );
+      return 'Updated';
+    } else {
+      return 'Album Not Found';
+    }
   }
 }

@@ -31,4 +31,14 @@ export class AlbumsService {
   async addAlbum(body): Promise<string> {
     return await this.albumsRepository.addAlbum(body);
   }
+
+  // Delete Album
+  async deleteAlbum(id): Promise<string> {
+    return await this.albumsRepository.deleteAlbum(id);
+  }
+
+  // Update Album
+  async updateAlbum(id: number, body: Albums): Promise<string> {
+    return await this.albumsRepository.updateAlbum(id, body);
+  }
 }
