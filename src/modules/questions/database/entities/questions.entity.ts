@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { CategoryEntity } from 'src/modules/category/database/entities/category.entity';
 import {
   Entity,

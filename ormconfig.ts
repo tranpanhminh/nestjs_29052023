@@ -1,12 +1,6 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-var-requires */
-import { UsersEntity } from 'src/modules/users/database/entities/users.entity';
 import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { ConfigModule } from '@nestjs/config';
-import { RolesEntity } from 'src/modules/roles/database/entities/roles.entity';
-import { CategoryEntity } from 'src/modules/category/database/entities/category.entity';
-import { QuestionEntity } from 'src/modules/questions/database/entities/questions.entity';
 ConfigModule.forRoot({
   envFilePath: '.env',
 });
